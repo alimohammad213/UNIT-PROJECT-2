@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ venue.name }} - Sport It{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">{{ venue.name }}</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+    <p><strong>City:</strong> {{ venue.city }}</p>
+    <p>
+        <strong>Location:</strong> {{ venue.location }}
+        <a href="https://www.google.com/maps/search/?api=1&query={{ venue.city|urlencode }}+{{ venue.location|urlencode }}" target="_blank" class="map-link ms-2" title="Open in Google Maps">
+            <i class="bi bi-geo-alt-fill"></i>
+        </a>
+    </p>     
+        <p class="card-text"><strong>Price per Hour:</strong> ﷼ {{ venue.price_per_hour }}</p>
+        <p class="card-text"><strong>Amenities:</strong> {{ venue.amenities|default:"None listed" }}</p>
+        <a href="{% url 'bookings:book_venue' venue.id %}" class="btn btn-primary">Book Now</a>
+    </div>
+</div>
+<h2 class="mb-3">Reviews</h2>
+{% if reviews %}
+    <div class="list-group mb-4">
+        {% for review in reviews %}
+            <div class="list-group-item">
+                <p><strong>{{ review.user.username }}</strong> - {{ review.rating }} Stars</p>
+                <p>{{ review.comment|default:"No comment" }}</p>
+                <small class="text-muted">{{ review.created_at }}</small>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="alert alert-info">No reviews yet.</p>
+{% endif %}
+
+<p><a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a></p>
+{% endblock %}

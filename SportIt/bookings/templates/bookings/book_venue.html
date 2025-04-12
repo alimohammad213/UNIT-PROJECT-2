@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dateInput = document.getElementById("booking_date");
+      dateInput.addEventListener("change", function () {
+        const selectedDate = this.value;
+        if (selectedDate) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('booking_date', selectedDate);
+          window.location.href = url.toString();
+        }
+      });
+    });
+  </script>
+  
+<div class="container mt-5">
+    <h2>Book {{ venue.name }}</h2>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="booking_date" class="form-label">Select Date</label>
+            <input  type="date"
+                    name="booking_date"
+                    id="booking_date"
+                    class="form-control"
+                    value="{{ selected_date }}"
+                    min="{{ min_date }}"
+                    max="{{ max_date }}"
+                    required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Hour</label>
+            <div class="hour-options">
+              {% for hour in available_hours %}
+                {% with hour_str=hour|stringformat:"02d" %}
+                  <input type="radio"
+                         name="booking_hour"
+                         id="hour_{{ hour_str }}"
+                         value="{{ hour }}"
+                         class="hour-radio"
+                         {% if selected_hour == hour_str %}checked{% endif %}>
+          
+                  <label for="hour_{{ hour_str }}" class="hour-box">
+                    {{ hour_str }}:00
+                  </label>
+                {% endwith %}
+              {% endfor %}
+            </div>
+          </div>
+
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration</label>
+            <select name="duration" id="duration" class="form-select" required>
+                <option value="">-- Select Duration --</option>
+                <option value="1" {% if duration == "1" %}selected{% endif %}>1 Hour</option>
+                <option value="2" {% if duration == "2" %}selected{% endif %}>2 Hours</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+</div>
+
+{% endblock %}

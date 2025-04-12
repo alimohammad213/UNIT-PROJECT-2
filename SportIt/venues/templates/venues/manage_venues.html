@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Manage Venues - Sport It{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1 class="mt-4">Manage Your Venues</h1>
+    
+    <a href="{% url 'venues:add_venue' %}" class="btn btn-primary mb-3">Add New Venue</a>
+    
+    {% if venues %}
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Sport</th>
+                    <th>Location</th>
+                    <th>Price/Hour</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venue in venues %}
+                    <tr>
+                        <td>{{ venue.name }}</td>
+                        <td>{{ venue.sport_type }}</td>
+                        <td>{{ venue.location }}</td>
+                        <td>${{ venue.price_per_hour }}</td>
+                        <td>
+                            <a href="{% url 'venues:edit_venue' venue.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'venues:delete_venue' venue.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="alert alert-info">You have no venues yet.</p>
+    {% endif %}
+    
+    <p><a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a></p>
+</div>
+
+
+{% endblock %}
