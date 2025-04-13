@@ -2,7 +2,7 @@ body {
     font-family: 'Poppins', sans-serif; 
     background-color: #f4f7f6; 
     color: #333;
-    
+    padding-top: 76px;
 }
 
 .navbar {
@@ -10,29 +10,31 @@ body {
     background: linear-gradient(90deg, #2c3e50, #3498db); 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .navbar-brand {
     font-weight: bold;
     font-size: 1.5rem;
     color: white;
     transition: color 0.3s ease;
 }
+
 .nav-link {
-    color: white ;
+    color: white;
     transition: color 0.3s ease;
     font-size: 1.2rem;
 }
+
 .nav-link:hover, .nav-link.active {
-    color: #f1c40f ; 
+    color: #f1c40f; 
 }
+
 .pt-navbar {
     padding-top: 70px; 
 }
 
-.
-.navbar.stiky-scrolled {
+.navbar.sticky-scrolled {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-
 
 .venue-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -41,44 +43,44 @@ body {
     overflow: hidden;
     background: white;
 }
+
 .venue-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
+
 .venue-card img {
-    object-fit: cover;
     height: 200px;
     width: 100%;
+    object-fit: cover;
 }
+
 .venue-card .card-title a {
     color: #2c3e50;
     text-decoration: none;
     font-weight: 600;
 }
+
 .venue-card .card-title a:hover {
     color: #3498db;
-}
-.venue-card .btn-primary {
-    background-color: #3498db;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-.venue-card .btn-primary:hover {
-    background-color: #2980b9;
 }
 
 .btn-primary {
     background-color: #3498db;
     border-color: #3498db;
+    transition: background-color 0.3s ease;
 }
+
 .btn-primary:hover {
     background-color: #2980b9;
     border-color: #2980b9;
 }
+
 .btn-secondary {
     background-color: #7f8c8d;
     border-color: #7f8c8d;
 }
+
 .btn-secondary:hover {
     background-color: #6c757d;
     border-color: #6c757d;
@@ -89,6 +91,12 @@ body {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+button:focus,
+input:focus,
+select:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
 
 footer.footer {
     background-color: rgba(255, 255, 255, 0.08);
@@ -99,34 +107,48 @@ footer.footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-
-
-.carousel-item img {
-    border-radius: 10px;
+.carousel-image-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%; 
+    overflow: hidden;
 }
+
+.carousel-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .carousel-caption {
-    background: rgba(0, 0, 0, 0.6); 
-    padding: 10px;
-    border-radius: 5px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 15px;
+    bottom: 20px;
+    width: auto;
+    right: 15%;
+    left: 15%;
+    z-index: 10; 
 }
+
 .carousel-caption h5 {
     color: white;
     font-weight: 600;
+    margin-bottom: 10px;
 }
-.carousel-caption p {
-    color: #f1c40f; 
-}
+
 .carousel-control-prev, .carousel-control-next {
     filter: invert(100%);
+    z-index: 20; 
 }
-
-.carousel-background {
-    background-image: url('../images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 20px 0;
-}
-
 
 .map-link {
     color: #3498db;
@@ -135,12 +157,12 @@ footer.footer {
     vertical-align: middle;
     transition: color 0.3s ease;
 }
+
 .map-link:hover {
     color: #2980b9;
 }
 
-
-.sport  {
+.sport {
     margin-bottom: 90px;
 }
 
@@ -180,7 +202,6 @@ footer.footer {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
 }
 
-
 .sport-btn {
     background-color: #f8f9fa;
     border: 2px solid #ccc;
@@ -190,22 +211,19 @@ footer.footer {
     height: 90px;
     text-align: center;
     cursor: pointer;
-    transition: 0.3s ease;
     color: #333;
     font-weight: 500;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .sport-btn:hover {
     background-color: #e9ecef;
     border-color: #007bff;
     transform: scale(1.1);
-
 }
 
 .sport-btn.active {
@@ -213,19 +231,41 @@ footer.footer {
     color: white;
     border-color: #007bff;
 }
+
 .material-symbols-outlined {
     font-size: 28px;
     transition: color 0.3s ease, transform 0.2s ease;
-    transform: scale(1.1);
 }
 
-
-button:focus,
-input:focus,
-select:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
+@media (max-width: 768px) {
+    .carousel-image-container {
+        padding-top: 75%; 
+    }
+    
+    .sport-btn {
+        flex: 0 0 calc(33.333% - 1rem);
+        min-width: 80px;
+    }
 }
 
+@media (max-width: 576px) {
+    .container.mobile-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .form-control {
+        padding: 12px;
+        font-size: 16px;
+        height: auto;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
 
 

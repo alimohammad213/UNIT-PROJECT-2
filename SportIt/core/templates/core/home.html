@@ -5,53 +5,56 @@
 
 {% block content %}
 <div class="container py-4">
-    {% if featured_venues %}
-        <div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for venue in featured_venues %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ venue.image.url }}" class="d-block w-100" alt="{{ venue.name }}" style="height: 400px; object-fit: cover;">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>{{ venue.name }}</h5>
-                            <a href="{% url 'bookings:book_venue' venue.id %}" class="btn btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                {% endfor %}
+    
+{% if featured_venues %}
+<div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner rounded shadow">
+        {% for venue in featured_venues %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="carousel-image-container">
+                    <img src="{{ venue.image.url }}" class="d-block w-100" alt="{{ venue.name }}">
+                </div>
+                <div class="carousel-caption">
+                    <h5 class="fw-bold">{{ venue.name }}</h5>
+                    <a href="{% url 'bookings:book_venue' venue.id %}" class="btn btn-primary">Book Now</a>
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    {% endif %}
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endif %}
 
     <h1 class="text-center mb-5">Explore Available Venues</h1>
 
     <form method="get" class="mb-4">
         <div class="row g-3 justify-content-center align-items-end">
-          <div class="col-md-3">
-            <input type="text" name="q" class="form-control" placeholder="Search by city or venue"
-                   value="{{ query }}">
-          </div>
-      
-          <div class="col-md-3">
-            <select name="sort_by" class="form-select">
-              <option value="">Sort by</option>
-              <option value="price_low" {% if sort_query == "price_low" %}selected{% endif %}>Price: Low to High</option>
-              <option value="price_high" {% if sort_query == "price_high" %}selected{% endif %}>Price: High to Low</option>
-            </select>
-          </div>
-      
-          <div class="col-md-2">
-            <input type="hidden" name="sport" value="{{ sport_query }}">
-            <button type="submit" class="btn btn-primary w-100">Search</button>
-          </div>
+            <div class="col-12 col-md-3">
+                <input type="text" name="q" class="form-control" placeholder="Search by city or venue"
+                       value="{{ query }}">
+            </div>
+        
+            <div class="col-12 col-md-3">
+                <select name="sort_by" class="form-select">
+                    <option value="">Sort by</option>
+                    <option value="price_low" {% if sort_query == "price_low" %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_high" {% if sort_query == "price_high" %}selected{% endif %}>Price: High to Low</option>
+                </select>
+            </div>
+        
+            <div class="col-12 col-md-2">
+                <input type="hidden" name="sport" value="{{ sport_query }}">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
         </div>
-      </form>
+    </form>
     
     <form method="get" class="mb-5 d-flex flex-wrap gap-3 justify-content-center">
         {% for value, label, icon in sport_choices %}
@@ -68,27 +71,27 @@
         <div class="row sport">
             {% for venue in venues %}
             <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                    <div class="card venue-card h-100">
-                        {% if venue.image %}
-                            <img src="{{ venue.image.url }}" class="card-img-top" alt="{{ venue.name }}">
-                        {% else %}
-                            <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="No image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{% url 'venues:venue_detail' venue.id %}">{{ venue.name }}</a>
-                            </h5>
-                            <p class="card-text">
-                                <strong>City:</strong> {{ venue.city }}<br>
-                                <span class="material-symbols-outlined">payments</span>
-                                <strong> ريال {{ venue.price_per_hour }}</strong><br>
-                                <span class="material-symbols-outlined">schedule</span>
-                                <strong>Per hour</strong>
-                            </p>
-                            <a href="{% url 'bookings:book_venue' venue.id %}" class="btn btn-primary">Book Now</a>
-                        </div>
+                <div class="card venue-card h-100 shadow-sm">
+                    {% if venue.image %}
+                        <img src="{{ venue.image.url }}" class="card-img-top" alt="{{ venue.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="No image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'venues:venue_detail' venue.id %}">{{ venue.name }}</a>
+                        </h5>
+                        <p class="card-text">
+                            <strong>City:</strong> {{ venue.city }}<br>
+                            <span class="material-symbols-outlined">payments</span>
+                            <strong> ريال {{ venue.price_per_hour }}</strong><br>
+                            <span class="material-symbols-outlined">schedule</span>
+                            <strong>Per hour</strong>
+                        </p>
+                        <a href="{% url 'bookings:book_venue' venue.id %}" class="btn btn-primary">Book Now</a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     {% else %}
@@ -96,3 +99,5 @@
     {% endif %}
 </div>
 {% endblock %}
+
+
