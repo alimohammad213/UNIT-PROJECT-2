@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["https://sport-it-production-ea39.up.railway.app", "http://127.0.0.1"]
 
 
-# Application definition
+# Application 
 
 INSTALLED_APPS = [
     'django.contrib.admin',
